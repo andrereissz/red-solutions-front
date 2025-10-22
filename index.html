@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html lang="pt-BR" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Red Solutions - Consultoria e Eventos</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'brand-solid': '#0085FF', // O azul principal do "RED"
+                        'brand-light': '#00A4FF', // Azul claro do gradiente do logo
+                        'brand-dark': '#0052D4', // Azul escuro do gradiente do logo
+                        'brand-text': '#4a5568', // cinza escuro do "SOLUTIONS"
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        /* Pequeno reset para garantir o smooth scroll */
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        /* Classe para a transição suave do header */
+        #main-header {
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+
+        /* Animação de fade-in para as seções */
+        .fade-in-section {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+        }
+        .fade-in-section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Estilo para o modal de imagem */
+        #image-modal {
+            background-color: rgba(0, 0, 0, 0.85); /* Fundo mais escuro */
+        }
+        #image-modal-content {
+            max-height: 90vh;
+            max-width: 90vw;
+            object-fit: contain;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+        }
+        #image-modal-content.loaded {
+            opacity: 1;
+            transform: scale(1);
+        }
+        .modal-arrow {
+            background-color: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(5px);
+            border-radius: 50%;
+            transition: background-color 0.2s;
+        }
+        .modal-arrow:hover {
+            background-color: rgba(255, 255, 255, 0.4);
+        }
+    </style>
+</head>
+<body class="font-sans antialiased text-brand-text bg-white">
+
+    <header id="main-header" class="fixed top-0 left-0 w-full z-50 bg-white/90 backdrop-blur-md shadow-sm">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#home" class="flex items-center space-x-2">
+                <img src="logo_sem_fundo.png" alt="Red Solutions Logo" class="h-10 w-auto">
+            </a>
+            
+            <div class="hidden md:flex items-center space-x-8">
+                <a href="#home" class="text-brand-text hover:text-brand-solid transition duration-200 font-medium">Início</a>
+                <a href="#about" class="text-brand-text hover:text-brand-solid transition duration-200 font-medium">Sobre Nós</a>
+                <a href="#services" class="text-brand-text hover:text-brand-solid transition duration-200 font-medium">Serviços</a>
+                <a href="#highlights" class="text-brand-text hover:text-brand-solid transition duration-200 font-medium">Destaques</a>
+                <a href="#contact" class="bg-brand-solid text-white px-5 py-2 rounded-full font-semibold hover:bg-brand-dark transition duration-300 shadow-lg">
+                    Contato
+                </a>
+            </div>
+            
+            <div class="md:hidden">
+                <button id="menu-btn" class="text-brand-dark focus:outline-none">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path>
+                    </svg>
+                </button>
+            </div>
+        </nav>
+        
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-xl">
+            <a href="#home" class="block text-center px-4 py-3 text-brand-text hover:bg-gray-100">Início</a>
+            <a href="#about" class="block text-center px-4 py-3 text-brand-text hover:bg-gray-100">Sobre Nós</a>
+            <a href="#services" class="block text-center px-4 py-3 text-brand-text hover:bg-gray-100">Serviços</a>
+            <a href="#highlights" class="block text-center px-4 py-3 text-brand-text hover:bg-gray-100">Destaques</a>
+            <a href="#contact" class="block text-center px-4 py-4 text-brand-solid font-semibold hover:bg-gray-100">Contato</a>
+        </div>
+    </header>
+
+    <main>
+        
+        <section id="home" class="min-h-screen pt-24 flex items-center bg-gradient-to-b from-white to-gray-50">
+            <div class="container mx-auto px-6 text-center">
+                <div class="max-w-3xl mx-auto">
+                    <h1 class="text-4xl md:text-6xl font-bold text-brand-dark mb-4 leading-tight">
+                        Inovação e Eficiência <span class="text-brand-solid">em um só lugar.</span>
+                    </h1>
+                    <p class="text-lg md:text-xl text-brand-text mb-8">
+                        A Red Solutions transforma desafios em oportunidades, oferecendo consultoria e gestão de eventos com excelência.
+                    </p>
+                    <a href="#contact" class="bg-brand-solid text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-brand-dark transition duration-300 shadow-lg transform hover:scale-105">
+                        Fale com um especialista
+                    </a>
+                </div>
+            </div>
+        </section>
+        
+        <section id="about" class="py-20 md:py-32 bg-white fade-in-section">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col md:flex-row items-center gap-12">
+                    <div class="w-full md:w-1/2 flex justify-center">
+                        <img src="logo_sem_fundo.png" alt="Logo Red Solutions" class="rounded-lg shadow-2xl max-w-sm w-full">
+                    </div>
+                    <div class="w-full md:w-1/2 text-center md:text-left">
+                        <span class="text-brand-solid font-semibold uppercase">Quem Somos</span>
+                        <h2 class="text-3xl md:text-4xl font-bold text-brand-dark my-4">Sobre a Red Solutions</h2>
+                        <p class="text-brand-text leading-relaxed mb-4">
+                            A <strong class="font-semibold">Red Solutions</strong> (razão social: RAD COMERCIO CONSULTORIA E EVENTOS LTDA) é uma empresa dedicada a fornecer soluções estratégicas e inovadoras para negócios que buscam crescimento e otimização.
+                        </p>
+                        <p class="text-brand-text leading-relaxed">
+                            Com uma equipe experiente, atuamos desde a consultoria empresarial, analisando e propondo melhorias, até o planejamento e execução completa de eventos corporativos que fortalecem sua marca e geram resultados.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="services" class="py-20 md:py-32 bg-gray-50 fade-in-section">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-brand-solid font-semibold uppercase">Nossos Serviços</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-brand-dark mt-4">Soluções que impulsionam</h2>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center transform hover:-translate-y-2 transition duration-300">
+                        <div class="bg-brand-light text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-brand-dark mb-3">Consultoria Empresarial</h3>
+                        <p class="text-brand-text">Análises estratégicas, otimização de processos e planos de ação para alavancar seus resultados e garantir competitividade.</p>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center transform hover:-translate-y-2 transition duration-300">
+                        <div class="bg-brand-solid text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-brand-dark mb-3">Gestão de Eventos</h3>
+                        <p class="text-brand-text">Planejamento, organização e execução de eventos corporativos, feiras e convenções que marcam e geram conexões.</p>
+                    </div>
+                    
+                    <div class="bg-white p-8 rounded-lg shadow-lg text-center transform hover:-translate-y-2 transition duration-300">
+                        <div class="bg-brand-dark text-white rounded-full w-16 h-16 flex items-center justify-center mx-auto mb-6 shadow-lg">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                        </div>
+                        <h3 class="text-2xl font-bold text-brand-dark mb-3">Soluções e Comércio</h3>
+                        <p class="text-brand-text">Fornecimento de produtos e soluções customizadas que atendem às demandas específicas do seu projeto ou negócio.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="highlights" class="py-20 md:py-32 bg-white fade-in-section">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-brand-solid font-semibold uppercase">Nossos Destaques</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-brand-dark mt-4">Resultados que inspiram</h2>
+                    <p class="text-lg text-brand-text mt-4">
+                        Conheça alguns dos projetos e conceitos que a Red Solutions desenvolveu para seus clientes.
+                    </p>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <div class="group relative overflow-hidden rounded-lg shadow-xl cursor-pointer" data-img-index="0">
+                        <img src="destaque_petshop.jpg" alt="Pet Shop de Excelência" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="text-white text-lg font-semibold">Ver Detalhes</span>
+                        </div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-lg shadow-xl cursor-pointer" data-img-index="1">
+                        <img src="destaque_pdv_vende.jpg" alt="PDV que realmente vende" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="text-white text-lg font-semibold">Ver Detalhes</span>
+                        </div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-lg shadow-xl cursor-pointer" data-img-index="2">
+                        <img src="destaque_farmacia_layout.jpg" alt="Farmácia com Layout Inteligente" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="text-white text-lg font-semibold">Ver Detalhes</span>
+                        </div>
+                    </div>
+                    <div class="group relative overflow-hidden rounded-lg shadow-xl cursor-pointer" data-img-index="3">
+                        <img src="destaque_varejo_farma.jpg" alt="Oportunidade e Crescimento" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300">
+                        <div class="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <span class="text-white text-lg font-semibold">Ver Detalhes</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact" class="py-20 md:py-32 bg-gray-50 fade-in-section">
+            <div class="container mx-auto px-6">
+                <div class="text-center max-w-2xl mx-auto mb-16">
+                    <span class="text-brand-solid font-semibold uppercase">Fale Conosco</span>
+                    <h2 class="text-3xl md:text-4xl font-bold text-brand-dark mt-4">Estamos prontos para te atender</h2>
+                    <p class="text-lg text-brand-text mt-4">
+                        Envie um e-mail, ligue ou faça-nos uma visita. Vamos conversar sobre como podemos ajudar seu negócio.
+                    </p>
+                </div>
+                
+                <div class="max-w-4xl mx-auto bg-white p-8 md:p-12 rounded-lg shadow-xl">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+                        <div class="space-y-6">
+                            <div>
+                                <h3 class="text-lg font-semibold text-brand-dark mb-1">Endereço</h3>
+                                <p class="text-brand-text leading-relaxed">
+                                    R NORBERTO MAYER<br>
+                                    BAIRRO ELDORADO, CONTAGEM - MG<br>
+                                    CEP: 32.315-100
+                                </p>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-brand-dark mb-1">Telefone</h3>
+                                <a href="tel:3136568555" class="text-brand-text hover:text-brand-solid text-lg">(31) 3656-8555</a>
+                            </div>
+                            <div>
+                                <h3 class="text-lg font-semibold text-brand-dark mb-1">E-mail</h3>
+                                <a href="mailto:CONTATO@LPJCONTABILIDADE.COM.BR" class="text-brand-text hover:text-brand-solid text-lg">
+                                    CONTATO@LPJCONTABILIDADE.COM.BR
+                                </a>
+                                <p class="text-sm text-gray-500 mt-1">(Email de contato administrativo)</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex flex-col justify-center text-center bg-gray-50 p-8 rounded-lg shadow-inner">
+                            <h3 class="text-2xl font-bold text-brand-dark mb-4">Pronto para começar?</h3>
+                            <p class="text-brand-text mb-6">Agende uma reunião sem compromisso e descubra o potencial da Red Solutions.</p>
+                            <a href="mailto:CONTATO@LPJCONTABILIDADE.COM.BR" class="bg-brand-solid text-white px-8 py-3 rounded-full font-semibold text-lg hover:bg-brand-dark transition duration-300 shadow-lg transform hover:scale-105">
+                                Agendar Reunião
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="bg-brand-dark text-gray-300 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <p class="font-semibold text-white text-lg mb-2">Red Solutions</p>
+            <p class="text-sm">
+                &copy; <span id="current-year"></span> Todos os direitos reservados.
+            </p>
+            <p class="text-sm text-gray-400 mt-4 max-w-lg mx-auto">
+                RAD COMERCIO CONSULTORIA E EVENTOS LTDA<br>
+                R NORBERTO MAYER, ELDORADO, CONTAGEM - MG | CEP: 32.315-100
+            </p>
+            <div class="mt-4">
+                <a href="#" id="open-privacy" class="text-sm text-gray-300 hover:text-white underline">
+                    Política de Privacidade
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    
+    <div id="privacy-modal" class="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 items-center justify-center p-6 hidden">
+        <div class="bg-white rounded-lg shadow-2xl max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+            <div class="flex justify-between items-center p-6 border-b">
+                <h2 class="text-2xl font-bold text-brand-dark">Política de Privacidade</h2>
+                <button id="close-privacy" class="text-gray-500 hover:text-gray-800 text-3xl">&times;</button>
+            </div>
+            
+            <div class="p-8 space-y-4 text-brand-text leading-relaxed">
+                <p><strong>Última atualização:</strong> Outubro de 2025</p>
+                
+                <h3 class="text-lg font-semibold text-brand-dark pt-2">1. Coleta de Informações</h3>
+                <p>Nós, da RAD COMERCIO CONSULTORIA E EVENTOS LTDA (Red Solutions), não coletamos informações pessoais através deste site, exceto aquelas fornecidas voluntariamente por você através dos canais de contato direto (e-mail ou telefone).</p>
+
+                <h3 class="text-lg font-semibold text-brand-dark pt-2">2. Uso das Informações</h3>
+                <p>As informações fornecidas (nome, e-mail, telefone) serão utilizadas exclusivamente para fins de contato comercial, para responder suas solicitações, agendar reuniões e fornecer informações sobre nossos serviços de consultoria e eventos.</p>
+
+                <h3 class="text-lg font-semibold text-brand-dark pt-2">3. Compartilhamento de Informações</h3>
+                <p>Não compartilhamos, vendemos ou alugamos suas informações pessoais com terceiros para fins de marketing. Seus dados são confidenciais e tratados com sigilo por nossa equipe.</p>
+
+                <h3 class="text-lg font-semibold text-brand-dark pt-2">4. Cookies</h3>
+                <p>Este site não utiliza cookies para rastreamento de comportamento ou coleta de dados pessoais. Podemos utilizar cookies essenciais para o funcionamento básico do site, se necessário.</p>
+                
+                <h3 class="text-lg font-semibold text-brand-dark pt-2">5. Segurança</h3>
+                <p>Empregamos medidas de segurança para proteger suas informações. No entanto, nenhum método de transmissão pela Internet ou armazenamento eletrônico é 100% seguro.</p>
+
+                <h3 class="text-lg font-semibold text-brand-dark pt-2">6. Seus Direitos</h3>
+                <p>Você tem o direito de solicitar acesso, correção ou exclusão de suas informações pessoais que possamos ter. Para isso, entre em contato através do e-mail: CONTATO@LPJCONTABILIDADE.COM.BR.</p>
+
+                <h3 class="text-lg font-semibold text-brand-dark pt-2">7. Alterações nesta Política</h3>
+                <p>Podemos atualizar esta política de privacidade periodicamente. A versão mais recente estará sempre disponível nesta página.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="image-modal" class="fixed inset-0 hidden items-center justify-center z-[100]">
+        <div class="relative flex items-center justify-center w-full h-full">
+            <button id="close-image-modal" class="absolute top-4 right-4 text-white text-5xl z-20 focus:outline-none">&times;</button>
+            
+            <button id="prev-image" class="modal-arrow absolute left-4 p-3 z-20 focus:outline-none">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+            </button>
+
+            <img id="image-modal-content" src="" alt="Destaque da Red Solutions" class="rounded-lg shadow-2xl opacity-0 transform scale-95">
+
+            <button id="next-image" class="modal-arrow absolute right-4 p-3 z-20 focus:outline-none">
+                <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </button>
+        </div>
+    </div>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', (event) => {
+            
+            // --- Script do Header (Esconder ao Rolar) ---
+            let lastScrollY = window.scrollY;
+            const header = document.getElementById('main-header');
+            const scrollThreshold = 100; // Distância para começar a esconder
+            const mobileMenu = document.getElementById('mobile-menu'); // Definindo mobileMenu aqui para scope
+
+            window.addEventListener('scroll', () => {
+                const currentScrollY = window.scrollY;
+
+                if (currentScrollY > scrollThreshold) {
+                    if (currentScrollY > lastScrollY) {
+                        // Rolando para baixo
+                        header.classList.add('-translate-y-full');
+                        header.classList.remove('shadow-sm');
+                    } else {
+                        // Rolando para cima
+                        header.classList.remove('-translate-y-full');
+                        header.classList.add('shadow-md'); // Adiciona sombra ao voltar
+                    }
+                } else {
+                    // No topo
+                    header.classList.remove('-translate-y-full');
+                    header.classList.add('shadow-sm');
+                }
+                
+                // Fecha o menu mobile se estiver aberto ao rolar
+                if (!mobileMenu.classList.contains('hidden')) {
+                     mobileMenu.classList.add('hidden');
+                }
+
+                lastScrollY = currentScrollY;
+            });
+
+            // --- Script do Menu Mobile ---
+            const menuBtn = document.getElementById('menu-btn');
+            
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+            
+            // Fecha o menu mobile ao clicar em um link
+            mobileMenu.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+            // --- Script do Modal de Privacidade ---
+            const privacyModal = document.getElementById('privacy-modal');
+            const openPrivacyBtn = document.getElementById('open-privacy');
+            const closePrivacyBtn = document.getElementById('close-privacy');
+
+            openPrivacyBtn.addEventListener('click', (e) => {
+                e.preventDefault();
+                privacyModal.classList.remove('hidden');
+                privacyModal.classList.add('flex');
+            });
+
+            const closePrivacyModal = () => {
+                privacyModal.classList.add('hidden');
+                privacyModal.classList.remove('flex');
+            }
+
+            closePrivacyBtn.addEventListener('click', closePrivacyModal);
+            
+            // Fecha ao clicar fora do conteúdo do modal
+            privacyModal.addEventListener('click', (e) => {
+                if (e.target === privacyModal) {
+                    closePrivacyModal();
+                }
+            });
+
+            // --- Script para Ano Atual no Footer ---
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+
+            // --- Script de Animação (Fade-in ao Rolar) ---
+            const sections = document.querySelectorAll('.fade-in-section');
+            
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        observer.unobserve(entry.target); // Para animar apenas uma vez
+                    }
+                });
+            }, {
+                threshold: 0.1 // Ativa quando 10% da seção está visível
+            });
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+
+            // --- Script do Lightbox de Imagens ---
+            const imageModal = document.getElementById('image-modal');
+            const imageModalContent = document.getElementById('image-modal-content');
+            const closeImageModalBtn = document.getElementById('close-image-modal');
+            const prevImageBtn = document.getElementById('prev-image');
+            const nextImageBtn = document.getElementById('next-image');
+            const galleryImages = document.querySelectorAll('#highlights img');
+            let currentImageIndex = 0;
+
+            const imageSources = Array.from(galleryImages).map(img => img.src);
+
+            const openImageModal = (index) => {
+                currentImageIndex = index;
+                imageModalContent.src = imageSources[currentImageIndex];
+                imageModalContent.classList.remove('loaded'); // Reseta a classe para animar novamente
+                imageModal.classList.remove('hidden');
+                imageModal.classList.add('flex');
+                
+                // Garante que a imagem está carregada antes de adicionar a classe de animação
+                imageModalContent.onload = () => {
+                    imageModalContent.classList.add('loaded');
+                };
+            };
+
+            const closeImageModal = () => {
+                imageModal.classList.add('hidden');
+                imageModal.classList.remove('flex');
+                imageModalContent.classList.remove('loaded');
+                imageModalContent.src = ''; // Limpa a src para economizar memória
+            };
+
+            const showNextImage = () => {
+                currentImageIndex = (currentImageIndex + 1) % imageSources.length;
+                openImageModal(currentImageIndex);
+            };
+
+            const showPrevImage = () => {
+                currentImageIndex = (currentImageIndex - 1 + imageSources.length) % imageSources.length;
+                openImageModal(currentImageIndex);
+            };
+
+            galleryImages.forEach((img, index) => {
+                img.parentElement.addEventListener('click', () => openImageModal(index));
+            });
+
+            closeImageModalBtn.addEventListener('click', closeImageModal);
+            prevImageBtn.addEventListener('click', showPrevImage);
+            nextImageBtn.addEventListener('click', showNextImage);
+
+            // Fechar modal ao clicar fora da imagem
+            imageModal.addEventListener('click', (e) => {
+                if (e.target === imageModal || e.target === imageModalContent.parentElement) {
+                    closeImageModal();
+                }
+            });
+
+            // Navegação por teclado
+            document.addEventListener('keydown', (e) => {
+                if (!imageModal.classList.contains('hidden')) {
+                    if (e.key === 'ArrowRight') {
+                        showNextImage();
+                    } else if (e.key === 'ArrowLeft') {
+                        showPrevImage();
+                    } else if (e.key === 'Escape') {
+                        closeImageModal();
+                    }
+                }
+            });
+
+        });
+    </script>
+</body>
+</html>
